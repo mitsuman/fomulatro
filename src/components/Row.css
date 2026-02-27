@@ -1,0 +1,8 @@
+.row {
+  display: flex;
+  gap: 5px;
+}
+
+.row--current .tile--filled {
+  border-color: #999;
+}

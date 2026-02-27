@@ -1,0 +1,39 @@
+.tile {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #565758;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.tile--empty {
+  border-color: #3a3a3c;
+  background: transparent;
+}
+
+.tile--filled {
+  border-color: #999;
+  background: transparent;
+  color: white;
+}
+
+.tile--correct {
+  background-color: #538d4e;
+  border-color: #538d4e;
+}
+
+.tile--present {
+  background-color: #b59f3b;
+  border-color: #b59f3b;
+}
+
+.tile--absent {
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
+}
