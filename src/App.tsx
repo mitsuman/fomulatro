@@ -63,6 +63,28 @@ export default function App() {
     submitGuess();
   }, [gameStatus, submitGuess]);
 
+  const shareOnX = useCallback(() => {
+    const emojiMap: Record<string, string> = {
+      correct: '🟩',
+      present: '🟨',
+      absent: '⬛',
+      filled: '⬜',
+      empty: '⬜',
+    };
+    const grid = submittedGuesses
+      .map(row => row.map(t => emojiMap[t.state]).join(''))
+      .join('\n');
+    const result = gameStatus === 'won'
+      ? `${submittedGuesses.length}/${MAX_GUESSES}`
+      : 'X/6';
+    const text = `Fomulatro ${result}\n\n${grid}\n\nhttps://mitsuman.github.io/fomulatro`;
+    window.open(
+      `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  }, [submittedGuesses, gameStatus]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key;
@@ -101,6 +123,12 @@ export default function App() {
         onEnter={handleEnter}
         onBackspace={handleBackspace}
       />
+
+      {gameStatus !== 'playing' && (
+        <button className="share-btn" onClick={shareOnX}>
+          Share on 𝕏
+        </button>
+      )}
 
       <div className="app__hint">
         <p>Enter a valid equation like <code>10+20=30</code> ({FORMULA_LENGTH} chars)</p>
