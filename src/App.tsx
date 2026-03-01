@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { TileData, GameStatus, FORMULA_LENGTH, MAX_GUESSES } from './types';
 import { evaluateGuess, getKeyStates } from './gameLogic';
-import { pickRandomFormula, isValidFormula } from './data/formulas';
+import { pickDailyFormula, isValidFormula, getTodayString } from './data/formulas';
 import { Board } from './components/Board';
 import { Keyboard } from './components/Keyboard';
 import './App.css';
 
-const ANSWER = pickRandomFormula();
+const ANSWER = pickDailyFormula();
+const TODAY = getTodayString();
 
 export default function App() {
   const [submittedGuesses, setSubmittedGuesses] = useState<TileData[][]>([]);
@@ -77,7 +78,7 @@ export default function App() {
     const result = gameStatus === 'won'
       ? `${submittedGuesses.length}/${MAX_GUESSES}`
       : 'X/6';
-    const text = `Fomulatro ${result}\n\n${grid}\n\nhttps://mitsuman.github.io/fomulatro`;
+    const text = `Fomulatro ${TODAY} ${result}\n\n${grid}\n\nhttps://mitsuman.github.io/fomulatro`;
     window.open(
       `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`,
       '_blank',
@@ -104,7 +105,7 @@ export default function App() {
     <div className="app">
       <header className="app__header">
         <h1 className="app__title">Fomulatro</h1>
-        <p className="app__subtitle">Guess the math formula</p>
+        <p className="app__subtitle">{TODAY} · Guess the math formula</p>
       </header>
 
       {message && (
