@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { TileData, GameStatus, FORMULA_LENGTH, MAX_GUESSES } from './types';
 import { evaluateGuess, getKeyStates } from './gameLogic';
-import { pickDailyFormula, isValidFormula } from './data/formulas';
+import { pickRandomFormula, isValidFormula } from './data/formulas';
 import { Board } from './components/Board';
 import { Keyboard } from './components/Keyboard';
 import './App.css';
 
-const ANSWER = pickDailyFormula();
+const ANSWER = pickRandomFormula();
 
 export default function App() {
   const [submittedGuesses, setSubmittedGuesses] = useState<TileData[][]>([]);
